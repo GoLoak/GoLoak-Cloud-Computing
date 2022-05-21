@@ -19,6 +19,8 @@ const singleFileSchema = new Schema({
         type: String,
         required: true
     }
-}, {timestamps: true});
+},
+{timestamps: true},
+{ versionKey: false });
 
 module.exports = mongoose.model('SingleFile', singleFileSchema);
