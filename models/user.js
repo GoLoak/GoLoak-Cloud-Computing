@@ -7,7 +7,8 @@ const UserSchema = new Schema({
     nama : {
         type: String,
         required: true,
-    },  
+    },
+
     email: {
         type: String,
         required: true,
