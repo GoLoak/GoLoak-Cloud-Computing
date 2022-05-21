@@ -6,25 +6,24 @@ const User = require('../models/user.js');
 const mongoose = require('mongoose');
 
 const router = express.Router();
-const url = "https://jwt-auth-puneet.netlify.app/reset-password/";
-// const url = "http://localhost:3000/reset-password/";
+// const url = "    ";
+const url = "https://goloak.herokuapp.com/auth/reset-password/";
 
 router.post("/login", async (req, res) => {
 
     try {
 
         const {
-            username,
             email,
             password
         } = req.body;
         const user = await User.findOne({
-            username
+            email
         }).lean();
 
         if (!user) {
             return res.json({
-                message: 'Invalid username/password'
+                message: 'Invalid email/password'
             });
         }
 
@@ -63,7 +62,6 @@ router.post("/signup", async (req, res) => {
     try {
         const {
             nama,
-            username,
             password,
             email,
             nomer,
@@ -72,7 +70,6 @@ router.post("/signup", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         await User.create({
             nama: nama,
-            username: username,
             email: email,
             nomer: nomer,
             alamat: alamat,
@@ -87,7 +84,7 @@ router.post("/signup", async (req, res) => {
         if (error.code === 11000) {
             // duplicate key
             return res.json({
-                message: 'Username/Email already exists'
+                message: 'Email already exists'
             });
         }
         res.status(500).json({
@@ -101,19 +98,19 @@ router.post("/reset-password", async (req, res) => {
     try {
         const {
             id,
-            username,
+            email,
             password
         } = req.body;
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.json({
-                message: 'Invalid Username or Link'
+                message: 'Invalid email or Link'
             });
         }
 
         const user = await User.findById(id);
-        if (!user || user.username !== username) {
+        if (!user || user.email !== email) {
             return res.json({
-                message: 'Invalid Username or Link'
+                message: 'Invalid Email or Link'
             });
         }
 
@@ -148,7 +145,7 @@ router.post('/forgot', async (req, res) => {
         const html = `
             <h3>Hello , </h3>
             <p>Please click on the link below to reset your password for ${email}.</p>
-            <p>Reset Link: ${url + user._id + "/" + user.username}</p>
+            <p>Reset Link: ${url + user._id + "/" + user.email}</p>
             <br/>
             <p> If you didn't request this, please ignore this email.</p>
             <p>Thank You</p>
