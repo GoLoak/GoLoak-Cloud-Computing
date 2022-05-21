@@ -8,6 +8,6 @@ const mulitipleFileSchema = new Schema({
         required: true
     },
     files: [Object]
-}, {timestamps: true}, { versionKey: false });
+}, {timestamps: true, versionKey: false});
 
 module.exports = mongoose.model('MultipleFile', mulitipleFileSchema);
