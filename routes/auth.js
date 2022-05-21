@@ -61,18 +61,18 @@ router.post("/signup", async (req, res) => {
 
     try {
         const {
-            nama,
+            fullname,
             password,
             email,
-            nomer,
-            alamat
+            phone_number,
+            address
         } = req.body;
         const hashedPassword = await bcrypt.hash(password, 12);
         await User.create({
-            nama: nama,
+            fullname: fullname,
             email: email,
-            nomer: nomer,
-            alamat: alamat,
+            phone_number: phone_number,
+            address: address,
             password: hashedPassword
         });
 

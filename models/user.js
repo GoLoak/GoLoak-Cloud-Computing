@@ -4,7 +4,7 @@ const {
     Schema
 } = mongoose;
 const UserSchema = new Schema({
-    nama : {
+    fullname : {
         type: String,
         required: true,
     },
@@ -18,11 +18,11 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    nomer: {
+    phone_number: {
         type: String,
         required: true,
     },
-    alamat: {
+    address: {
         type: String,
         required: true,
     },
