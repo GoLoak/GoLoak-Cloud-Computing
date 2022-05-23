@@ -2,11 +2,13 @@
 const SingleFile = require('../models/singlefile');
 const MultipleFile = require('../models/multiplefile');
 
+const urls = 'http://localhost:3033/'
+
 const singleFileUpload = async (req, res, next) => {
     try{
         const file = new SingleFile({
             fileName: req.file.originalname,
-            filePath: req.file.path,
+            filePath: urls + req.file.path,
             fileType: req.file.mimetype,
             fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
         });
