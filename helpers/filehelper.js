@@ -1,12 +1,13 @@
 'use strict';
 const multer = require('multer');
+const moment = require('moment');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, Math.floor(new Date().getTime() / 1000) + file.originalname);
     }
 });
 const filefilter = (req, file, cb) => {
