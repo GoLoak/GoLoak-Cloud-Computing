@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
         cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + 
         '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) 
         + path.extname(file.originalname));
-        // cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + path.extname(file.originalname));
     }
 });
 const filefilter = (req, file, cb) => {
