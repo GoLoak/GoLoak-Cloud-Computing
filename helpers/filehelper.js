@@ -8,7 +8,8 @@ const storage = multer.diskStorage({
         cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) + path.extname(file.originalname));
+        // cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000)+ randomstring.generate({length: 6, charset: 'alphabetic'}) + path.extname(file.originalname));
+        cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + path.extname(file.originalname));
         // cb(null, file.originalname);
     }
 });
