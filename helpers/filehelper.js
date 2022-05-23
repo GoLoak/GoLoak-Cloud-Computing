@@ -1,13 +1,13 @@
 'use strict';
 const multer = require('multer');
-const moment = require('moment');
+const path = require('path')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, Math.floor(new Date().getTime() / 1000) + file.originalname);
+        cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + Math.random().toString(36).replace(/[/w]+/g, '') + path.extname(file.originalname));
     }
 });
 const filefilter = (req, file, cb) => {
