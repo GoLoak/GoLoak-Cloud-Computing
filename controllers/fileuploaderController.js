@@ -2,7 +2,7 @@
 const SingleFile = require('../models/singlefile');
 const MultipleFile = require('../models/multiplefile');
 
-const urls = 'http://localhost:3033/'
+const urls = 'https://goloak.herokuapp.com/'
 
 const singleFileUpload = async (req, res, next) => {
     try{
