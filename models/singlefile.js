@@ -7,7 +7,7 @@ const singleFileSchema = new Schema({
         type: String,
         required: true
     },
-    filePath: {
+    fileUrl: {
         type: String,
         required: true
     },

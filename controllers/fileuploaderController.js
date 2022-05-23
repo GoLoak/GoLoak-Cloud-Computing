@@ -8,7 +8,7 @@ const singleFileUpload = async (req, res, next) => {
     try{
         const file = new SingleFile({
             fileName: req.file.originalname,
-            filePath: urls + req.file.path,
+            fileUrl: urls + req.file.path,
             fileType: req.file.mimetype,
             fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
         });
@@ -24,7 +24,7 @@ const multipleFileUpload = async (req, res, next) => {
         req.files.forEach(element => {
             const file = {
                 fileName: element.originalname,
-                filePath: element.path,
+                fileUrl: element.path,
                 fileType: element.mimetype,
                 fileSize: fileSizeFormatter(element.size, 2)
             }
