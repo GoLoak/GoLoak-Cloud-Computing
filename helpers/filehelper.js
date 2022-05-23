@@ -1,13 +1,14 @@
 'use strict';
 const multer = require('multer');
 const path = require('path')
+const randomstring = require('randomstring')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + Math.random().toString(36).replace(/[/w]+/g, '') + path.extname(file.originalname));
+        cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + '_' + randomstring.generate(6) + path.extname(file.originalname));
     }
 });
 const filefilter = (req, file, cb) => {
