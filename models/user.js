@@ -31,7 +31,13 @@ const UserSchema = new Schema({
     date: {
         type: Date,
         default: Date.now(),
-    }
+    },
+    poinku: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'poin'
+        }
+    ]
 },
 { versionKey: false });
 
