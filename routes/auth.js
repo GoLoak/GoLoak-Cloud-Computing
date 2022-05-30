@@ -78,7 +78,7 @@ router.post("/signup", async (req, res) => {
         });
 
         res.status(201).json({
-            message: "ok"
+            message: "success"
         });
 
     } catch (error) {

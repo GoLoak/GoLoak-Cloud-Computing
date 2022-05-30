@@ -35,13 +35,13 @@ const PoinSchema = new Schema({
     point_add: {
         type: Number,
     },
-    poin_min: {
+    point_min: {
         type: Number,
     }
     ,
     pengguna: {
             type: Schema.Types.ObjectId,
-            ref: 'pengguna'
+            ref: 'user'
         }
 })
 

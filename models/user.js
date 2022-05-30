@@ -37,6 +37,12 @@ const UserSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'poin'
         }
+    ],
+    penjualanku: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'selling'
+        }
     ]
 },
 { versionKey: false });

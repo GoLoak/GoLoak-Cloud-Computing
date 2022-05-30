@@ -8,6 +8,7 @@ const fileRoutes = require('./routes/file-upload-routes');
 const profile = require('./routes/profile');
 const poin = require('./routes/poin');
 const dotenv = require("dotenv");
+const penjualan = require('./routes/penjualan')
 dotenv.config()
 const url = process.env.MONGO_URL
 mongoose
@@ -41,6 +42,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/user', profile);
 
 app.use('/poin', poin);
+
+app.use('/penjualan', penjualan);
 
 app.use('/api', fileRoutes.routes);
 
