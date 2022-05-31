@@ -9,7 +9,8 @@ const getUserById = async (req, res, next) => {
             fullname: user.fullname,
             email: user.email,
             phone_number: user.phone_number,
-            address: user.address
+            address: user.address,
+            point: user.point,
         })
     }catch(error) {
         res.status(400).send(error.message);

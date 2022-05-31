@@ -167,6 +167,7 @@ Response :
     "fullname": "Mamang Loak",
     "email": "mamank@bangkit.academy",
     "phone_number": "08123456789",
-    "address": "address"
+    "address": "address",
+    "point": 0
 }
 ```
