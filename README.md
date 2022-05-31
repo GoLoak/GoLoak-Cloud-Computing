@@ -1,5 +1,7 @@
 # Goloak API Documentation
 
+- host : `https://goloak.herokuapp.com/`
+
 ## User
 ### Signup
 - Method : POST
