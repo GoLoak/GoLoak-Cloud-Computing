@@ -32,7 +32,11 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now(),
     },
-    poinku: [
+    point: {
+        type: Number,
+        default: 0
+    },
+    historypoint: [
         {
             type: Schema.Types.ObjectId,
             ref: 'poin'

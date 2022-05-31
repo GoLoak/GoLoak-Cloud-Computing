@@ -11,26 +11,15 @@ const User = require('../models/user')
 //     }
 // }
 
-const getPoinById = async (req, res, next) => {
+const getHistoryPoinById = async (req, res, next) => {
     try{
         const { userId } = req.params;
-        const user = await User.findById(userId).populate('poinku')
-        res.status(200).send(user);
+        const user = await User.findById(userId).populate('historypoint')
+        res.status(200).send(user.historypoint.sort((a, b) => b.start_date - a.start_date));
     }catch(error) {
         res.status(400).send(error.message);
     }
 }
-
-const getOnePoinById = async (req, res, next) => {
-    try{
-        const { userId } = req.params;
-        const user = await User.findById(userId).populate('poinku')
-        res.status(200).send(user.poinku.sort());
-    }catch(error) {
-        res.status(400).send(error.message);
-    }
-}
-
 
 // const postPoinById = async (req, res, next) => {
 //     const { userId } = req.params;
@@ -49,7 +38,7 @@ const getOnePoinById = async (req, res, next) => {
 //     res.status(201).json(newPoin);
 // }
 
-const postPoinById = async (req, res, next) => {
+const postHistoryPoinById = async (req, res, next) => {
     const { userId } = req.params;
     // Create a new car
     const newPoin = new Poin(req.body);
@@ -60,7 +49,7 @@ const postPoinById = async (req, res, next) => {
     // save the poin
     await newPoin.save();
     // add car to the user's selling array
-    user.poinku.push(newPoin);
+    user.historypoint.push(newPoin);
     // save the user
     await user.save();
     res.status(201).json(newPoin);
@@ -76,9 +65,8 @@ const getPengguna = async (req, res, next) => {
     res.status(200).json(pengguna)
 }
 
-module.exports = {getPoinById, 
-    postPoinById, 
+module.exports = {getHistoryPoinById, 
+    postHistoryPoinById, 
     postPenggunaBaru,
     getPengguna,
-    getOnePoinById
 }

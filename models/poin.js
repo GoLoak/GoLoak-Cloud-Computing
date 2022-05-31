@@ -20,9 +20,8 @@ const Schema = mongoose.Schema;
 //         }
 // })
 const PoinSchema = new Schema({
-    point: {
+    point_min: {
         type: Number,
-        required: true
     },
     status: {
         type: String,
@@ -32,18 +31,11 @@ const PoinSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    point_add: {
-        type: Number,
-    },
-    point_min: {
-        type: Number,
-    }
-    ,
     pengguna: {
             type: Schema.Types.ObjectId,
             ref: 'user'
         }
-})
+},{versionKey: false})
 
 const Poin = mongoose.model("poin", PoinSchema);
 module.exports = Poin;

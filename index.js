@@ -5,10 +5,8 @@ const path = require('path');
 const auth = require('./routes/auth');
 const bodyParser = require('body-parser');
 const fileRoutes = require('./routes/file-upload-routes');
-const profile = require('./routes/profile');
-const poin = require('./routes/poin');
 const dotenv = require("dotenv");
-const penjualan = require('./routes/penjualan')
+const api = require('./routes/api');
 dotenv.config()
 const url = process.env.MONGO_URL
 mongoose
@@ -39,13 +37,9 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/user', profile);
+app.use('/api', api);
 
-app.use('/poin', poin);
-
-app.use('/penjualan', penjualan);
-
-app.use('/api', fileRoutes.routes);
+app.use('/upload-file', fileRoutes.routes);
 
 app.listen(process.env.PORT || 5000, () => {
     console.log("Backend server is running!");

@@ -2,26 +2,27 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SellingSchema = new Schema({
-    jumlah_sampah: {
+    total_trash: {
         type: Number,
         required: true
     },
-    jumlah_point: {
+    total_point: {
         type: Number,
         required: true
-    },
-    tanggal: {
-        type: Date,
-        default: Date.now()
     },
     status: {
         type: String,
+        default: "Menunggu penjemputan",
+    },
+    createAt: {
+        type: Date,
+        default: Date.now()
     },
     pengguna: {
             type: Schema.Types.ObjectId,
             ref: 'user'
         }
-})
+},{versionKey: false})
 
 const Selling = mongoose.model("selling", SellingSchema);
 module.exports = Selling;

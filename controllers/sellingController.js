@@ -1,17 +1,17 @@
-const Selling = require('../models/penjualan');
+const Selling = require('../models/selling');
 const User = require('../models/user');
 
-const getPenjualanById = async (req, res, next) => {
+const getSellingById = async (req, res, next) => {
     try{
         const { userId } = req.params;
         const user = await User.findById(userId).populate('penjualanku')
-        res.status(200).send(user);
+        res.status(200).send(user.penjualanku.sort((a, b) => b.start_date - a.start_date));
     }catch(error) {
         res.status(400).send(error.message);
     }
 }
 
-const postPoinById = async (req, res, next) => {
+const postSellingById = async (req, res, next) => {
     const { userId } = req.params;
     // Create a new car
     const newPenjualan = new Selling(req.body);
@@ -29,6 +29,6 @@ const postPoinById = async (req, res, next) => {
 }
 
 module.exports = {
-    getPenjualanById,
-    postPoinById,
+    getSellingById,
+    postSellingById,
 }
