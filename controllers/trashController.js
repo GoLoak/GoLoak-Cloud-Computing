@@ -7,7 +7,9 @@ const createTrash = async (req, res, next) => {
     const { name, type, description, price } = req.body;
 
     // membuat url
-    const urls = req.protocol + '://' + req.get('host') + '/';
+    // const urls = req.protocol + '://' + req.get('host') + '/';
+
+    const urls = 'https://goloak.herokuapp.com/'
 
     try {
         const trash = new Trash(
