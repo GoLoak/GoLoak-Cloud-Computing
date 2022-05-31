@@ -171,3 +171,51 @@ Response :
     "point": 0
 }
 ```
+
+## Home
+
+### GET Home by Id User
+
+- Method : GET
+- Endpoint : `{host}/api/home/:userId`
+
+Response : 
+```json
+{
+    "message": "success",
+    "fullname": "Mamang Loak",
+    "email": "mamank@bangkit.academy",
+    "phone_number": "08123456789",
+    "address": "address",
+    "point": 0,
+    "listTrash": [
+        {
+            "_id": "6295a1c834a102d8dbc5104c",
+            "name": "botol",
+            "type": "kaca",
+            "description": "botol kaca",
+            "price": 1200,
+            "image": "http://localhost:3033/uploads\\goloak_1653973448_ymFBQb.jpg",
+            "fileSize": "77.14 KB"
+        },
+        {
+            "_id": "6295b13597089dd759c2c142",
+            "name": "botol",
+            "type": "kaca",
+            "description": "botol kaca",
+            "price": 1200,
+            "image": "http://localhost:3033/uploads\\goloak_1653977397_BkWtPS.jpg",
+            "fileSize": "77.14 KB"
+        },
+        {
+            "_id": "6295c49b9fe329588c22dae6",
+            "name": "botol",
+            "type": "kaca",
+            "description": "botol kaca",
+            "price": 1200,
+            "image": "http://localhost:3033/uploads\\goloak_1653982363_OzwWmr.jpg",
+            "fileSize": "77.14 KB"
+        }
+    ]
+}
+```

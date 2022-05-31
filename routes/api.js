@@ -14,6 +14,7 @@ const {getSellingById,
     postSellingById} = require('../controllers/sellingController');
 const {createTrash, getAllTrash} = require('../controllers/trashController');
 const {getUserById} = require('../controllers/profileController');
+const {homeUserById} = require('../controllers/homeController');
 
 
 
@@ -39,5 +40,7 @@ router.post('/trash/', upload.single('file'), createTrash);
 // profile
 router.get('/profile/:userId',getUserById);
 
+// home
+router.get('/home/:userId', homeUserById)
 
 module.exports = router;
