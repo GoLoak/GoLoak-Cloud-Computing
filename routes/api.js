@@ -13,6 +13,9 @@ const { getHistoryPoinById,
 const {getSellingById,
     postSellingById} = require('../controllers/sellingController');
 const {createTrash, getAllTrash} = require('../controllers/trashController');
+const {getUserById} = require('../controllers/profileController');
+
+
 
 // router
 const router = express.Router();
@@ -32,6 +35,9 @@ router.post('/selling/:userId', postSellingById);
 // trash
 router.get('/trash/', getAllTrash)
 router.post('/trash/', upload.single('file'), createTrash); 
+
+// profile
+router.get('/profile/:userId',getUserById);
 
 
 module.exports = router;
