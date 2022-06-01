@@ -14,6 +14,9 @@ const SellingSchema = new Schema({
         type: String,
         default: "Menunggu penjemputan",
     },
+    nameTrash: {
+        type: String,
+    },
     createAt: {
         type: Date,
         default: Date.now()
