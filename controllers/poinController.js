@@ -18,17 +18,17 @@ const getHistoryPoinById = async (req, res, next) => {
 const postHistoryPoinById = async (req, res, next) => {
     try {
         const { userId } = req.params;
-        // Create a new car
+        // Buat menyimpan poin baru
         const newPoin = new Poin(req.body);
-        // Get userId
+        // Berdasarkan user Id
         const user = await User.findById(userId);
-        // Assign poin as a Car's seller
+        // menetapkan db poin sebagai pengguna di db user
         newPoin.pengguna = user;
-        // save the poin
+        // menyimpan poin
         await newPoin.save();
-        // add car to the user's selling array
+        // menambahkan db user di field sebagai new poin
         user.historypoint.push(newPoin);
-        // save the user
+        // simpan user
         await user.save();
         res.status(201).json({
             message: 'success',

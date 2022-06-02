@@ -8,7 +8,7 @@ const getSellingById = async (req, res, next) => {
         // res.status(200).send(user.penjualanku.sort((a, b) => b.start_date - a.start_date))
         res.status(200).json({
             message: 'success',
-            listSelling: user.penjualanku.sort((a, b) => b.start_date - a.start_date),
+            listSelling: user.penjualanku.sort((a, b) => b.createAt - a.createAt),
         })
     }catch(error) {
         res.status(400).send(error.message);
@@ -18,17 +18,17 @@ const getSellingById = async (req, res, next) => {
 const postSellingById = async (req, res, next) => {
     try{
         const { userId } = req.params;
-        // Create a new car
+        // Buat menyimpan penjualan baru
         const newPenjualan = new Selling(req.body);
-        // Get userId
+        // Berdasarkan user Id
         const user = await User.findById(userId);
-        // Assign poin as a Car's seller
+        // menetapkan db selling sebagai pengguna di db user
         newPenjualan.pengguna = user;
-        // save the poin
+        // menyimpan penjualan
         await newPenjualan.save();
-        // add car to the user's selling array
+        // menambahkan db user di field sebagai new penjualan
         user.penjualanku.push(newPenjualan);
-        // save the user
+        // simpan user
         await user.save();
         res.status(201).json({
             message: 'success',
