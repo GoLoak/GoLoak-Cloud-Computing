@@ -33,7 +33,8 @@ router.post('/point/:userId', postHistoryPoinById);
 
 // penjualan
 router.get('/selling/:userId', getSellingById);
-router.post('/selling/:userId', postSellingById); 
+// router.post('/selling/:userId', postSellingById); 
+router.post('/selling/:userId', upload.single('file'), postSellingById); 
 
 // trash
 router.get('/trash/', getAllTrash)

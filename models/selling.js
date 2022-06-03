@@ -17,6 +17,12 @@ const SellingSchema = new Schema({
     nameTrash: {
         type: String,
     },
+    photoUrl: {
+        type: String,
+    },
+    fileSize: {
+        type: String,
+    },
     createAt: {
         type: Date,
         default: Date.now()

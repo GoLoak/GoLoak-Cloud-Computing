@@ -1,6 +1,8 @@
 const Selling = require('../models/selling');
 const User = require('../models/user');
 
+const urls = 'https://goloak.herokuapp.com/'
+
 const getSellingById = async (req, res, next) => {
     try{
         const { userId } = req.params;
@@ -15,11 +17,46 @@ const getSellingById = async (req, res, next) => {
     }
 }
 
+// const postSellingById = async (req, res, next) => {
+//     try{
+//         const { userId } = req.params;
+//         // Buat menyimpan penjualan baru
+//         const newPenjualan = new Selling(req.body);
+//         // Berdasarkan user Id
+//         const user = await User.findById(userId);
+//         // menetapkan db selling sebagai pengguna di db user
+//         newPenjualan.pengguna = user;
+//         // menyimpan penjualan
+//         await newPenjualan.save();
+//         // menambahkan db user di field sebagai new penjualan
+//         user.penjualanku.push(newPenjualan);
+//         // simpan user
+//         await user.save();
+//         res.status(201).json({
+//             message: 'success',
+//         })
+        
+//     }catch(error) {
+//         res.status(400).send(error.message);
+//     }
+
+// }
+
 const postSellingById = async (req, res, next) => {
     try{
         const { userId } = req.params;
+
+        const { total_trash, total_point, nameTrash } = req.body;
+
+
         // Buat menyimpan penjualan baru
-        const newPenjualan = new Selling(req.body);
+        const newPenjualan = new Selling({
+            total_trash,
+            total_point,
+            nameTrash,
+            photoUrl: urls + req.file.path,
+            fileSize: fileSizeFormatter(req.file.size, 2),
+        });
         // Berdasarkan user Id
         const user = await User.findById(userId);
         // menetapkan db selling sebagai pengguna di db user
@@ -38,6 +75,16 @@ const postSellingById = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 
+}
+
+const fileSizeFormatter = (bytes, decimal) => {
+    if(bytes === 0){
+        return '0 Bytes';
+    }
+    const dm = decimal || 2;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
+    const index = Math.floor(Math.log(bytes) / Math.log(1000));
+    return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
 }
 
 module.exports = {

@@ -49,7 +49,7 @@ Response :
 ```
 ## Selling
 
-### GET All
+### GET By User Id
 
 - Method : GET
 - Endpoint : `{host}/api/selling/:userId`
@@ -60,25 +60,31 @@ Response :
     "message": "success",
     "listSelling": [
         {
-            "_id": "6295a9c02506559ad3e7623c",
+            "_id": "629961f1cfa2610d24c81eb3",
             "total_trash": 10,
-            "total_point": 100,
+            "total_point": 1111,
             "status": "Menunggu penjemputan",
-            "createAt": "2022-05-31T05:37:37.006Z",
-            "pengguna": "6295a72534a102d8dbc5104e"
+            "nameTrash": "Plastik PE",
+            "photoUrl": "uploads\\images\\goloak_1654219249_IOjDnx.jpg",
+            "fileSize": "17.72 KB",
+            "createAt": "2022-06-03T01:20:24.919Z",
+            "pengguna": "62995cde1069186263559034"
         },
         {
-            "_id": "6295aa298420b038e02b67ff",
+            "_id": "62996171029bcd4d0802e898",
             "total_trash": 10,
-            "total_point": 100,
+            "total_point": 1111,
             "status": "Menunggu penjemputan",
-            "createAt": "2022-05-31T05:39:32.628Z",
-            "pengguna": "6295a72534a102d8dbc5104e"
+            "nameTrash": "Plastik PE",
+            "photoUrl": "uploads\\images\\goloak_1654219121_ezunmU.jpg",
+            "fileSize": "17.72 KB",
+            "createAt": "2022-06-03T01:18:02.808Z",
+            "pengguna": "62995cde1069186263559034"
         }
     ]
 }
 ```
-### POST 
+### POST By User Id
 
 - Method : POST
 - Endpoint : `{host}/api/selling/:userId`
@@ -87,9 +93,13 @@ Body :
 ```json
 {
     "total_trash" : 10,
-    "total_point" : 100
+    "total_point" : 100,
+    "nameTrash" : "Plastic PE"
 }
 ```
+Files:
+
+`{ files: { file: filesInputElement } }`
 
 Response : 
 ```json

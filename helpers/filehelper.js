@@ -5,7 +5,7 @@ const randomstring = require('randomstring')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads');
+        cb(null, 'uploads/images');
     },
     filename: (req, file, cb) => {
         cb(null, 'goloak_' + Math.floor(new Date().getTime() / 1000) + 

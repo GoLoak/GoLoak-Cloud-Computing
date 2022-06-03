@@ -104,14 +104,14 @@ router.post("/reset-password", async (req, res) => {
         } = req.body;
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.json({
-                message: 'Invalid email or Link'
+                message: 'check your verification link'
             });
         }
 
         const user = await User.findById(id);
         if (!user || user.email !== email) {
             return res.json({
-                message: 'Invalid Email or Link'
+                message: 'link could not be found'
             });
         }
 
@@ -119,7 +119,7 @@ router.post("/reset-password", async (req, res) => {
         user.password = hashedPassword;
         await user.save();
         return res.status(200).json({
-            message: "ok"
+            message: "success"
         });
 
     } catch (err) {
@@ -139,7 +139,7 @@ router.post('/forgot', async (req, res) => {
 
         if (!user) {
             return res.json({
-                message: 'Invalid Email'
+                message: 'please cek your email'
             });
         }
 
@@ -163,7 +163,7 @@ router.post('/forgot', async (req, res) => {
         });
 
         let mailDetails = {
-            from: 'no-reply puneetvideomeet@gmail.com',
+            from: 'no-reply GoLoak',
             to: email,
             subject: 'Password Change',
             html: html
