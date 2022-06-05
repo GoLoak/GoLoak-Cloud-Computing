@@ -1,5 +1,5 @@
 {
-  "name": "coba",
+  "name": "GoLoak",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,10 @@
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "c7291f2464@bangkit.academy & c2291g2462@bangkit.academy",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^6.0.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

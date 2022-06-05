@@ -1,7 +1,8 @@
 'use strict'
 // module
 const express = require('express');
-const {upload} = require('../helpers/filehelper');
+// const {upload} = require('../helpers/filehelper');
+const Multer = require('multer');
 
 
 // middelwares
@@ -19,6 +20,12 @@ const {getUserById,
 const {homeUserById} = require('../controllers/homeController');
 
 
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+    },
+  });
 
 // router
 const router = express.Router();
@@ -34,11 +41,11 @@ router.post('/point/:userId', postHistoryPoinById);
 // penjualan
 router.get('/selling/:userId', getSellingById);
 // router.post('/selling/:userId', postSellingById); 
-router.post('/selling/:userId', upload.single('file'), postSellingById); 
+router.post('/selling/:userId', multer.single('file'), postSellingById); 
 
 // trash
 router.get('/trash/', getAllTrash)
-router.post('/trash/', upload.single('file'), createTrash); 
+router.post('/trash/', multer.single('file'), createTrash); 
 
 // profile
 router.get('/profile/:userId', getUserById);
