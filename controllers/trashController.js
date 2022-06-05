@@ -3,6 +3,8 @@ const Trash = require('../models/trash');
 const { cloudStorage } = require('../config/index');
 const bucketGo = cloudStorage.bucket('storage_goloak');
 const {format} = require('util');
+const randomstring = require('randomstring');
+const path = require('path');
 
 const createTrash = async (req, res, next) => {
     const { name, type, description, price } = req.body;
@@ -12,17 +14,19 @@ const createTrash = async (req, res, next) => {
     // membuat url
     // const urls = req.protocol + '://' + req.get('host') + '/';
 
-    const urls = 'https://goloak.herokuapp.com/'
-
-    
-    
+    const bucktUrl = 'https://storage.googleapis.com/storage_goloak/uploads/images/'
     
     try {
         if (!file) {
             res.status(400).send('No file uploaded.');
             return;
         }
-        const blob = bucketGo.file(`uploads/images/${file.originalname}`);
+
+        const fileName = 'goloak_' + Math.floor(new Date().getTime() / 1000) + 
+        '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) 
+        + path.extname(file.originalname);
+
+        const blob = bucketGo.file(`uploads/images/${fileName}`);
         const blobStream = blob.createWriteStream({
             resumable: false,
         })
@@ -31,12 +35,13 @@ const createTrash = async (req, res, next) => {
             next(err);
         });
 
-        blobStream.on('finish', () => {
+       blobStream.on('finish', () => {
             // The public URL can be used to directly access the file via HTTP.
             const publicUrl = format(
             `https://storage.googleapis.com/storage_goloak/${blob.name}`
             );
-            res.status(200).send(publicUrl);
+            // res.status(200).send(publicUrl);
+            console.log('storage_goloak url from trash : ' + publicUrl);
         });
 
 
@@ -48,15 +53,15 @@ const createTrash = async (req, res, next) => {
                 type,
                 description,
                 price,
-                image: urls + req.file.path,
+                image: bucktUrl + fileName,
                 fileSize: fileSizeFormatter(req.file.size, 2)
             }
         );
         await trash.save();
-        // res.status(201).json({
-        //     message: 'success',
-        //     results: trash,
-        // })
+        res.status(201).json({
+            message: 'success',
+            results: trash,
+        })
 
     }catch(error) {
         res.status(400).send(error.message);
