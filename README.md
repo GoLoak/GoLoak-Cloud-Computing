@@ -65,7 +65,7 @@ Response :
             "total_point": 1111,
             "status": "Menunggu penjemputan",
             "nameTrash": "Plastik PE",
-            "photoUrl": "uploads\\images\\goloak_1654219249_IOjDnx.jpg",
+            "photoUrl": "http://url/goloak_1654219249_IOjDnx.jpg",
             "fileSize": "17.72 KB",
             "createAt": "2022-06-03T01:20:24.919Z",
             "pengguna": "62995cde1069186263559034"
@@ -76,7 +76,7 @@ Response :
             "total_point": 1111,
             "status": "Menunggu penjemputan",
             "nameTrash": "Plastik PE",
-            "photoUrl": "uploads\\images\\goloak_1654219121_ezunmU.jpg",
+            "photoUrl": "http://url/goloak_1654219121_ezunmU.jpg",
             "fileSize": "17.72 KB",
             "createAt": "2022-06-03T01:18:02.808Z",
             "pengguna": "62995cde1069186263559034"
@@ -99,7 +99,7 @@ Body :
 ```
 Files:
 
-`{ files: { file: filesInputElement } }`
+`{ files: { file: filesInputElement } }` => Max file size: 20 MB
 
 Response : 
 ```json
@@ -205,7 +205,7 @@ Response :
             "type": "kaca",
             "description": "botol kaca",
             "price": 1200,
-            "image": "http://localhost:3033/uploads\\goloak_1653973448_ymFBQb.jpg",
+            "image": "http://url/goloak_1653973448_ymFBQb.jpg",
             "fileSize": "77.14 KB"
         },
         {
@@ -214,7 +214,7 @@ Response :
             "type": "kaca",
             "description": "botol kaca",
             "price": 1200,
-            "image": "http://localhost:3033/uploads\\goloak_1653977397_BkWtPS.jpg",
+            "image": "http://url/goloak_1653977397_BkWtPS.jpg",
             "fileSize": "77.14 KB"
         },
         {
@@ -223,8 +223,64 @@ Response :
             "type": "kaca",
             "description": "botol kaca",
             "price": 1200,
-            "image": "http://localhost:3033/uploads\\goloak_1653982363_OzwWmr.jpg",
+            "image": "http://url/goloak_1653982363_OzwWmr.jpg",
             "fileSize": "77.14 KB"
+        }
+    ]
+}
+```
+## Trash
+
+### POST Trash 
+
+- Method : POST
+- Endpoint : `{host}/api/trash`
+
+Body : 
+```json
+{
+    "total_trash" : 10,
+    "total_point" : 100,
+    "nameTrash" : "Plastic PE"
+}
+```
+Files:
+
+`{ files: { file: filesInputElement } }` => Max file size: 20 MB
+
+Response : 
+```json
+{
+    "message": "success",
+    "results": {
+        "name": "botol",
+        "type": "kaca",
+        "description": "botol kaca",
+        "price": 1200,
+        "image": "http://url/goloak_1654430827_VogLgw.jpg",
+        "fileSize": "7.79 MB",
+        "_id": "629c9c6bb5f03a97292fb252"
+    }
+}
+```
+
+### GET Trash
+- Method : GET
+- Endpoint : `{host}/api/trash`
+
+Body : 
+```json
+{
+    "message": "success",
+    "listTrash": [
+        {
+            "_id": "629c9c6bb5f03a97292fb252",
+            "name": "botol",
+            "type": "kaca",
+            "description": "botol kaca",
+            "price": 1200,
+            "image": "http://url/goloak_1654430827_VogLgw.jpg",
+            "fileSize": "7.79 MB"
         }
     ]
 }
