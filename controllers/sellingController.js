@@ -1,5 +1,11 @@
+'use strict'
 const Selling = require('../models/selling');
 const User = require('../models/user');
+const { cloudStorage } = require('../config/index');
+const bucketGo = cloudStorage.bucket('storage_goloak');
+const {format} = require('util');
+const randomstring = require('randomstring');
+const path = require('path');
 
 const urls = 'https://goloak.herokuapp.com/'
 
@@ -43,18 +49,51 @@ const getSellingById = async (req, res, next) => {
 // }
 
 const postSellingById = async (req, res, next) => {
+    const { userId } = req.params;
+
+    const { total_trash, total_point, nameTrash } = req.body;
+
+    const file = req.file;
+    const bucktUrl = 'https://storage.googleapis.com/storage_goloak/uploads/images/'
+
     try{
-        const { userId } = req.params;
+        if (!file) {
+            res.status(400).json({
+                message: 'file cannot be empty or upload files of type jpeg, jpg, and png'
+            });
+            return;
+        }
 
-        const { total_trash, total_point, nameTrash } = req.body;
+        const fileName = 'goloak_' + Math.floor(new Date().getTime() / 1000) + 
+        '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) 
+        + path.extname(file.originalname);
 
+        const blob = bucketGo.file(`uploads/images/${fileName}`);
+        const blobStream = blob.createWriteStream({
+            resumable: false,
+        })
+
+        blobStream.on('error', err => {
+            next(err);
+        });
+
+        blobStream.on('finish', () => {
+            // The public URL can be used to directly access the file via HTTP.
+            const publicUrl = format(
+            `https://storage.googleapis.com/storage_goloak/${blob.name}`
+            );
+            // res.status(200).send(publicUrl);
+            console.log('storage_goloak url from selling : ' + publicUrl);
+        });
+
+        blobStream.end(req.file.buffer);
 
         // Buat menyimpan penjualan baru
         const newPenjualan = new Selling({
             total_trash,
             total_point,
             nameTrash,
-            photoUrl: urls + req.file.path,
+            photoUrl: bucktUrl + fileName,
             fileSize: fileSizeFormatter(req.file.size, 2),
         });
         // Berdasarkan user Id

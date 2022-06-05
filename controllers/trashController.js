@@ -37,7 +37,7 @@ const createTrash = async (req, res, next) => {
             next(err);
         });
 
-       blobStream.on('finish', () => {
+        blobStream.on('finish', () => {
             // The public URL can be used to directly access the file via HTTP.
             const publicUrl = format(
             `https://storage.googleapis.com/storage_goloak/${blob.name}`
