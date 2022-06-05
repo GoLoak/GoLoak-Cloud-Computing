@@ -20,12 +20,22 @@ const {getUserById,
 const {homeUserById} = require('../controllers/homeController');
 
 
+const filefilter = (req, file, cb) => {
+if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' 
+    || file.mimetype === 'image/png'){
+        cb(null, true);
+    }else {
+        cb(null, false);
+    }
+}
+
 const multer = Multer({
     storage: Multer.memoryStorage(),
     limits: {
-      fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+      fileSize: 20 * 1024 * 1024, // jangan melebihi 20 Mb.
     },
-  });
+    fileFilter: filefilter});
+
 
 // router
 const router = express.Router();

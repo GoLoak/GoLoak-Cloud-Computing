@@ -18,7 +18,9 @@ const createTrash = async (req, res, next) => {
     
     try {
         if (!file) {
-            res.status(400).send('No file uploaded.');
+            res.status(400).json({
+                message: 'file cannot be empty or upload files of type jpeg, jpg, and png'
+            });
             return;
         }
 
