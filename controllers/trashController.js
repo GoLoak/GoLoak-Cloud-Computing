@@ -24,7 +24,7 @@ const createTrash = async (req, res, next) => {
             return;
         }
 
-        const fileName = 'goloak_' + Math.floor(new Date().getTime() / 1000) + 
+        const fileName = 'goloak_trash_' + Math.floor(new Date().getTime() / 1000) + 
         '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) 
         + path.extname(file.originalname);
 

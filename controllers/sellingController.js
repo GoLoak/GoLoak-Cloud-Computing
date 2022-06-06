@@ -7,8 +7,6 @@ const {format} = require('util');
 const randomstring = require('randomstring');
 const path = require('path');
 
-const urls = 'https://goloak.herokuapp.com/'
-
 const getSellingById = async (req, res, next) => {
     try{
         const { userId } = req.params;
@@ -64,7 +62,7 @@ const postSellingById = async (req, res, next) => {
             return;
         }
 
-        const fileName = 'goloak_' + Math.floor(new Date().getTime() / 1000) + 
+        const fileName = 'goloak_sell_' + Math.floor(new Date().getTime() / 1000) + 
         '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) 
         + path.extname(file.originalname);
 

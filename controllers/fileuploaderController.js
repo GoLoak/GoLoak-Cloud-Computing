@@ -1,21 +1,65 @@
 'use strict';
 const SingleFile = require('../models/singlefile');
 const MultipleFile = require('../models/multiplefile');
-
-const urls = 'https://goloak.herokuapp.com/'
+const { cloudStorage } = require('../config/index');
+const bucketGo = cloudStorage.bucket('storage_goloak');
+const {format} = require('util');
+const randomstring = require('randomstring');
+const path = require('path');
 
 const singleFileUpload = async (req, res, next) => {
+
+    const file = req.file;
+    const bucktUrl = 'https://storage.googleapis.com/storage_goloak/uploads/images/'
+    
     try{
-        const file = new SingleFile({
-            fileName: req.file.originalname,
-            fileUrl: urls + req.file.path,
-            fileType: req.file.mimetype,
-            fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+        if (!file) {
+            res.status(400).json({
+                message: 'file cannot be empty or upload files of type jpeg, jpg, and png'
+            });
+            return;
+        }
+
+        const fileName = 'goloak_uploader_' + Math.floor(new Date().getTime() / 1000) + 
+        '_' + randomstring.generate({length: 6, charset: 'alphabetic'}) 
+        + path.extname(file.originalname);
+
+
+        const blob = bucketGo.file(`uploads/images/${fileName}`);
+        const blobStream = blob.createWriteStream({
+            resumable: false,
+        })
+
+        blobStream.on('error', err => {
+            next(err);
         });
-        await file.save();
-        res.status(201).send('File Uploaded Successfully');
+
+        blobStream.on('finish', () => {
+            // The public URL can be used to directly access the file via HTTP.
+            const publicUrl = format(
+            `https://storage.googleapis.com/storage_goloak/${blob.name}`
+            );
+            // res.status(200).send(publicUrl);
+            console.log('storage_goloak url from trash : ' + publicUrl);
+        });
+
+        blobStream.end(req.file.buffer);
+
+        const newFile = new SingleFile({
+            fileName: file.originalname,
+            fileUrl: bucktUrl + fileName,
+            fileType: file.mimetype,
+            fileSize: fileSizeFormatter(file.size, 2) // 0.00
+        });
+        await newFile.save();
+        res.status(201).json({
+            message: "File Uploaded Successfully",
+            resul: newFile
+        });
     }catch(error) {
-        res.status(400).send(error.message);
+        res.status(400).json({
+            message: error.message
+        });
     }
 }
 const multipleFileUpload = async (req, res, next) => {
@@ -35,7 +79,9 @@ const multipleFileUpload = async (req, res, next) => {
             files: filesArray 
         });
         await multipleFiles.save();
-        res.status(201).send('Files Uploaded Successfully');
+        res.status(201).json({
+            message: 'Multiple Files Uploaded Successfully'
+        });
     }catch(error) {
         res.status(400).send(error.message);
     }

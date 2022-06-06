@@ -107,22 +107,23 @@ const forgotPassword = async (req, res, next) => {
         });
 
         const mailOptions = {
-            from: 'NO-REPLY' + process.env.GMAIL_EMAIL,
+            from: 'NO-REPLY',
             to: user.email,
             subject: "Reset your password",
             html: `
-            <h1>Reset your password</h1>
-            <p>Please click the link to reset your password</p>
-            <a href="${process.env.CLIENT_URL}/auth/reset-password/${token}">${process.env.CLIENT_URL}/auth/reset-password/${token}</a>
+            <div>
+                <h1>Reset your password</h1>
+                <p>Click the link below to reset your password</p>
+                <p>This link will expire in 20 minutes</p>
+                <a href="${process.env.CLIENT_URL}/reset-password/${token}">Reset Password</a>
+                <p>or</>
+                <a href="${process.env.CLIENT_URL}/reset-password/${token}">${process.env.CLIENT_URL}/reset-password/${token}</a>
+                <p>Thank you</p>
+            </div>
             `
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
-            if(error) {
-                return res.status(500).json({
-                    message: error.message
-                });
-            }
             return res.status(200).json({
                 message: "success"
             });
@@ -164,10 +165,34 @@ const resetPassword = async (req, res, next) => {
     }
 }
 
+const authorizeUser = async (req, res, next) => {
+    const { token } = req.headers;
+
+    try {
+        const verify = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findOne({ _id: verify.id });
+
+        if(!user) {
+            return res.status(403).json({
+                message: "Please check your credentials"
+            });
+        }
+
+        return next();
+
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
 
 module.exports = {
     loginUser,
     signupUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    authorizeUser,
 };
