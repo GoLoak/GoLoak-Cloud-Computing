@@ -2,11 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-const auth = require('./routes/auth');
 const bodyParser = require('body-parser');
 const fileRoutes = require('./routes/file-upload-routes');
 const dotenv = require("dotenv");
 const api = require('./routes/api');
+const userRoutes = require('./routes/userRoutes');
 dotenv.config()
 const url = process.env.MONGO_URL
 mongoose
@@ -14,7 +14,7 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then(() => console.log("DB Connection Successfull!"))
+    .then(() => console.log("MongoDB connection success"))
     .catch((err) => {
         console.log(err);
     });
@@ -28,10 +28,11 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
-app.use('/auth', auth);
+
+app.use('/auth', userRoutes);
 
 app.get('/', (req, res) => {
-    res.send("JWT Authentictaion API");
+    res.send("Welcome API GoLoak");
 });
 
 app.use(bodyParser.json());
