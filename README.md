@@ -76,7 +76,7 @@ Body :
 
 ```json
 {
-    "email" : "dafabaelah12@gmail.com"
+    "email" : "mamank@bangkit.academy"
 }
 ```
 
@@ -261,8 +261,8 @@ Response :
 Body : 
 ```json
 {
-    "fullname": "daffa",
-    "email": "dafaganteng123@yahoo.com",
+    "fullname": "mamang loak",
+    "email": "mamank@bangkit.academy",
     "phone_number": "123",
     "address": "jalan-jalan",
     "point": 0
@@ -274,8 +274,8 @@ Response :
 {
     "message": "success",
     "newUser": {
-        "fullname": "daffa",
-        "email": "dafaganteng123@yahoo.com",
+        "fullname": "mamang loak",
+        "email": "mamank@bangkit.academy",
         "phone_number": "123",
         "address": "jalan-jalan",
         "point": 0
