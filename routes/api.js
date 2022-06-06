@@ -6,7 +6,7 @@ const {upload} = require('../helpers/filehelper');
 
 
 // middelwares
-const { authorizeUser } = require('../middlewares/userMiddlewares');
+// const { authorizeUser } = require('../middlewares/userMiddlewares');
 
 // controller
 const { getHistoryPoinById, 
@@ -46,12 +46,12 @@ router.get('/', (req, res) => {
 
 // poin
 router.get('/point/:userId', getHistoryPoinById);
-router.post('/point/:userId', authorizeUser, postHistoryPoinById);
+router.post('/point/:userId', postHistoryPoinById);
 
 // penjualan
 router.get('/selling/:userId', getSellingById);
 // router.post('/selling/:userId', postSellingById); 
-router.post('/selling/:userId', authorizeUser, upload.single('file'), postSellingById); 
+router.post('/selling/:userId', upload.single('file'), postSellingById); 
 
 // trash
 router.get('/trash/', getAllTrash)
@@ -64,6 +64,6 @@ router.put('/profile/:userId', updateUser);
 router.delete('/profile/:userId', deleteUser);
 
 // home
-router.get('/home/:userId', authorizeUser, homeUserById);
+router.get('/home/:userId', homeUserById);
 
 module.exports = router;
