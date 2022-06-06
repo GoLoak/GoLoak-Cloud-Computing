@@ -1,6 +1,26 @@
 # Goloak API Documentation
 
-- host : `https://goloak.herokuapp.com/`
+## Setup In Local
+
+1. clone the repository
+2. run `npm install`
+3. copy `cp .env.example .env`
+4. set your config in `.env`
+5. run `npm start`
+
+## Setup In App Engine
+
+1. create a new project
+2. run `gcloud app create`
+3. copy `cp .env.example .env`
+4. set your config in `.env`
+5. npm install
+6. run `gcloud app deploy`
+7. visit [your app](https://[your app].appspot.com)
+
+# REST API
+
+- host : `https://goloak.uc.r.appspot.com/`
 
 ## User
 ### Signup
@@ -47,6 +67,48 @@ Response :
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVhNzI1MzRhMTAyZDhkYmM1MTA0ZSIsImVtYWlsIjoibWFtYW5rQGJhbmdraXQuYWNhZGVteSIsImlhdCI6MTY1Mzk3NDk4MywiZXhwIjoxNjU0MDYxMzgzfQ.-l1IbxCGYxeX2Ta45UIaldA-K2cYGsOHF0i8Lh2iOFY"
 }
 ```
+
+### Forgot Password
+- Method : POST
+- Endpoint : `{host}/auth/forgot`
+
+Body : 
+
+```json
+{
+    "email" : "dafabaelah12@gmail.com"
+}
+```
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
+In Email :
+![email](https://raw.githubusercontent.com/GoLoak/.github/main/profile/CC/img/resetInEmail.PNG)
+
+### Change Password
+- Method : POST
+- Endpoint : `{host}/reset-password/:token`
+
+Body : 
+
+```json
+{
+    "password" : "myspassword121212"
+}
+```
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
 ## Selling
 
 ### GET By User Id
@@ -88,6 +150,10 @@ Response :
 
 - Method : POST
 - Endpoint : `{host}/api/selling/:userId`
+
+Header :
+
+`token : key token`
 
 Body : 
 ```json
@@ -144,10 +210,15 @@ Response :
     ]
 }
 ```
-### POST 
+
+### POST Point
 
 - Method : POST
 - Endpoint : `{host}/api/point/:userId`
+
+Header :
+
+`token : key token`
 
 Body : 
 ```json
@@ -163,6 +234,7 @@ Response :
     "message": "success"
 }
 ```
+
 ## Profile
 
 ### GET Profile by Id
@@ -182,12 +254,56 @@ Response :
 }
 ```
 
+### Update Profile By Id
+- Method : PUT/PATCH
+- Endpoint : `{host}/api/point/:userId`
+
+Body : 
+```json
+{
+    "fullname": "daffa",
+    "email": "dafaganteng123@yahoo.com",
+    "phone_number": "123",
+    "address": "jalan-jalan",
+    "point": 0
+}
+```
+
+Response : 
+```json
+{
+    "message": "success",
+    "newUser": {
+        "fullname": "daffa",
+        "email": "dafaganteng123@yahoo.com",
+        "phone_number": "123",
+        "address": "jalan-jalan",
+        "point": 0
+    }
+}
+```
+
+### Delete Profile By Id
+- Method : DELETE
+- Endpoint : `{host}/api/point/:userId`
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
 ## Home
 
 ### GET Home by Id User
 
 - Method : GET
 - Endpoint : `{host}/api/home/:userId`
+
+Header :
+
+`token : key token`
 
 Response : 
 ```json
