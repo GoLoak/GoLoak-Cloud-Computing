@@ -106,3 +106,6 @@ dist
 # key bucket
 
 goloak-aa39fcc6c492.json
+
+# config app engine
+app.yaml

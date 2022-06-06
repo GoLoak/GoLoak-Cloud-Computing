@@ -169,13 +169,20 @@ const authorizeUser = async (req, res, next) => {
     const { token } = req.headers;
 
     try {
+        if(!token) {
+            return res.status(403).json({
+                message: "invalid",
+                result: "Please login to continue"
+            });
+        }
         const verify = jwt.verify(token, process.env.JWT_SECRET);
 
         const user = await User.findOne({ _id: verify.id });
 
         if(!user) {
             return res.status(403).json({
-                message: "Please check your credentials"
+                message: "invalid",
+                result: "Cek your credentials"
             });
         }
 
