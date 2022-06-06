@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 const api = require('./routes/api');
 const userRoutes = require('./routes/userRoutes');
 const { authorizeUser } = require('./middlewares/userMiddlewares');
+const admin = require('./routes/admin');
 dotenv.config()
 const url = process.env.MONGO_URL
 mongoose
@@ -43,6 +44,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // app.use( middelware, authorizeUser);
 
 app.use('/api', api);
+app.use('/admin', admin);
 
 
 app.use('/upload-file', fileRoutes.routes);

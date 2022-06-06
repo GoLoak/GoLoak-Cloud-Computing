@@ -36,6 +36,10 @@ const UserSchema = new Schema({
         type: Number,
         default: 0
     },
+    status: {
+        type: String,
+        default: 'user'
+    },
     historypoint: [
         {
             type: Schema.Types.ObjectId,
