@@ -8,7 +8,7 @@ const getHistoryPoinById = async (req, res, next) => {
         // res.status(200).send(user.historypoint.sort((a, b) => b.start_date - a.start_date));
         res.status(200).json({
             message: 'success',
-            historyPoint: user.historypoint
+            historyPoint: user.historypoint.sort((a, b) => b.start_date - a.start_date)
         })
     }catch(error) {
         res.status(400).send(error.message);
