@@ -36,8 +36,7 @@ const trashUpdateById = async (req, res, next) => {
             price,
         });
         res.status(200).json({
-            message: 'success',
-            newTrash: trash
+            message: 'success'
         })
     } catch (error) {
         res.status(400).send(error.message);

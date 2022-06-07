@@ -401,3 +401,323 @@ Body :
     ]
 }
 ```
+
+# Administrator REST API
+
+## User
+
+### GET All User
+- Method : GET
+- Endpoint : `{host}/admin/user/`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success",
+    "listUser": [
+        {
+            "_id": "629e3f2adef49892ddbc8139",
+            "fullname": "mamank loak",
+            "email": "mamank@bangkit.academy",
+            "password": "encrypted",
+            "phone_number": "number",
+            "address": "jln my address",
+            "date": "2022-06-06T17:52:40.361Z",
+            "point": 100,
+            "status": "user",
+            "historypoint": [{
+                "$oid" : "62996a444bcb549d4dedc7ec"
+            }],
+            "penjualanku": [{
+                "$oid" : "62996b164bcb549d4dedc802"
+            }],
+            }]
+        }
+    ]
+}
+```
+
+### GET User By Id
+- Method : POST
+- Endpoint : `{host}/admin/user/:userId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success",
+    "user": {
+        "_id": "629e3f2adef49892ddbc8139",
+        "fullname": "mamank loak",
+        "email": "mamank@bangkit.academy",
+        "password": "encrypted",
+        "phone_number": "number",
+        "address": "jln my address",
+        "date": "2022-06-06T17:52:40.361Z",
+        "point": 0,
+        "status": "user",
+        "historypoint": [],
+        "penjualanku": []
+    }
+}
+```
+
+### Update User By Id
+- Method : PUT/PATCH
+- Endpoint : `{host}/admin/user/:userId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Body : 
+```json
+{
+    "password" : "dafa",
+    "point" : 1000
+}
+```
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
+
+### Delete User By Id
+- Method : DELETE
+- Endpoint : `{host}/admin/user/:userId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
+
+
+## Selling
+
+### GET All Selling
+- Method : GET
+- Endpoint : `{host}/admin/selling/`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success",
+    "listSelling": [
+        {
+            "_id": "629d5ddf22de1d096806f88d",
+            "total_trash": 10,
+            "total_point": 1000,
+            "status": "Menunggu penjemputan",
+            "nameTrash": "plastik PE",
+            "photoUrl": "https://url/uploads/images/goloak_sell_1654480351_UloVoL.jpg",
+            "fileSize": "77.91 KB",
+            "createAt": "2022-06-06T01:52:10.092Z",
+            "pengguna": "6297d522cbb5dad32159f56b"
+        }
+    ]
+}
+```
+
+### GET User By Id
+- Method : POST
+- Endpoint : `{host}/admin/user/:sellingId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success",
+    "trash": {
+        "_id": "629d5ddf22de1d096806f88d",
+        "total_trash": 10,
+        "total_point": 1000,
+        "status": "Menunggu penjemputan",
+        "nameTrash": "plastik PE",
+        "photoUrl": "https://url/uploads/images/goloak_sell_1654480351_UloVoL.jpg",
+        "fileSize": "77.91 KB",
+        "createAt": "2022-06-06T01:52:10.092Z",
+        "pengguna": "6297d522cbb5dad32159f56b"
+    }
+}
+```
+
+### Update Selling By Id
+- Method : PUT/PATCH
+- Endpoint : `{host}/admin/user/:sellingId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Body : 
+```json
+{
+    "status" : "Sedang dikonfirmasi"
+}
+```
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
+
+### Delete User By Id
+- Method : DELETE
+- Endpoint : `{host}/admin/user/:sellingId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
+
+## Trash
+
+### GET All Trash
+- Method : GET
+- Endpoint : `{host}/admin/trash/`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success",
+    "listTrash": [
+        {
+            "_id": "6295c76f011ee4beed8c1507",
+            "name": "botol kaca",
+            "type": "kaca",
+            "description": "botol kaca....",
+            "price": 1200,
+            "image": "https://url/img.jpg",
+            "fileSize": "77.14 KB"
+        }
+    ]
+}
+```
+
+### GET Trash By Id
+- Method : POST
+- Endpoint : `{host}/admin/trash/:trashId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success",
+    "trash": {
+        "_id": "6295c76f011ee4beed8c1507",
+        "name": "botol kaca",
+        "type": "kaca",
+        "description": "botol kaca...",
+        "price": 1200,
+        "image": "https://url/img.png",
+        "fileSize": "77.14 KB"
+    }
+}
+```
+
+### Update Trash By Id
+- Method : PUT/PATCH
+- Endpoint : `{host}/admin/trash/:trashId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Body : 
+```json
+{
+    "name": "botol kaca sedang",
+    "type": "kaca",
+    "description": "botol kaca sedang dan sejenisnya boleh di jual",
+    "price": 2000
+}
+```
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```
+
+
+### Delete User By Id
+- Method : DELETE
+- Endpoint : `{host}/trash/user/:trashId`
+
+Header :
+
+`type : API Key`
+`key : token`
+`value : your token`
+
+Response : 
+```json
+{
+    "message": "success"
+}
+```

@@ -1,4 +1,6 @@
 const User = require('../../models/user');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const getAllUser = async (req, res, next) => {
     try {
@@ -28,16 +30,38 @@ const userFindById = async (req, res, next) => {
 const userUpdateById = async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const { total_trash, total_point, status, nameTrash } = req.body;
-        const user = await User.findByIdAndUpdate(userId, {
-            total_point,
-            total_trash,
-            status,
-            nameTrash,
-        });
-        res.status(200).json({
-            message: 'success'
-        })
+        const { fullname, email, password, phone_number, address, point, status } = req.body;
+
+        if(password) {
+            const hashPass = await bcrypt.hash(password, 12);
+            const user = await User.findByIdAndUpdate(userId, {
+                fullname,
+                email,
+                password : hashPass,
+                phone_number,
+                address,
+                point,
+                status,
+            });
+            res.status(200).json({
+                message: 'success'
+            })
+            
+        }else {
+            const user = await User.findByIdAndUpdate(userId, {
+                fullname,
+                email,
+                phone_number,
+                address,
+                point,
+                status,
+            });
+            res.status(200).json({
+                message: 'success'
+            })
+            
+        }
+
     } catch (error) {
         res.status(400).send(error.message);
     }
